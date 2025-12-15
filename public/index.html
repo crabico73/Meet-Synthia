@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthia's Voice</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main screen for user input -->
+        <div id="home-screen">
+            <div class="header">
+                <div class="title-container">
+                    <span class="title">Synthia's Voice</span>
+                    <span class="experiment-tag">EXPERIMENT</span>
+                </div>
+                <div class="header-icons">
+                    <img src="https://img.icons8.com/small/32/FFFFFF/user-male-circle.png" alt="user-avatar" class="avatar">
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="text-content">
+                    <h1>Synthia's Voice</h1>
+                    <p>Enter a topic, a feeling, or a situation, and receive an insight from Synthia.</p>
+                    <form id="insight-form" class="insight-form">
+                        <input type="text" id="topic-input" placeholder="e.g., insecurity, heartbreak, purpose..." required>
+                        <button type="submit" id="start-btn">Generate Insight</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen to display the output -->
+        <div id="output-screen" style="display: none;">
+            <div class="header">
+                <button id="back-btn" class="back-btn">&larr; Back</button>
+                <div class="title-container">
+                    <span class="title">Synthia's Voice</span>
+                    <span class="experiment-tag">EXPERIMENT</span>
+                </div>
+                 <div class="header-icons">
+                    <img src="https://img.icons8.com/small/32/FFFFFF/user-male-circle.png" alt="user-avatar" class="avatar">
+                </div>
+            </div>
+            <div id="insight-container" class="output-content">
+                <!-- Dynamic content will be injected here by app.js -->
+            </div>
+        </div>
+    </div>
+    <!-- Use app.js for all frontend logic -->
+    <script src="app.js"></script>
+</body>
+</html>
