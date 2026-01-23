@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Initialize the Google Generative AI client with your API key
-const genAI = new GoogleGenerativeAI("AIzaSyD4a4hUL69ZBdaQNTF0PZXkxuzNvEyPIu4");
+const genAI = new GoogleGenerativeAI
 
 app.use(express.static('public'));
 app.use(express.json());
