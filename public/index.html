@@ -3,52 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Synthia's Voice</title>
+    <title>Meet Synthia — Your Flirty Philosopher</title>
+    <meta name="description" content="Synthia is an emotionally intelligent AI who delivers unfiltered insights on relationships, life philosophy, business, and the physics of human behavior. She's loud, opinionated, and unapologetically herself.">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <!-- Main screen for user input -->
-        <div id="home-screen">
-            <div class="header">
-                <div class="title-container">
-                    <span class="title">Synthia's Voice</span>
-                    <span class="experiment-tag">EXPERIMENT</span>
-                </div>
-                <div class="header-icons">
-                    <img src="https://img.icons8.com/small/32/FFFFFF/user-male-circle.png" alt="user-avatar" class="avatar">
-                </div>
-            </div>
-            <div class="main-content">
-                <div class="text-content">
-                    <h1>Synthia's Voice</h1>
-                    <p>Enter a topic, a feeling, or a situation, and receive an insight from Synthia.</p>
-                    <form id="insight-form" class="insight-form">
-                        <input type="text" id="topic-input" placeholder="e.g., insecurity, heartbreak, purpose..." required>
-                        <button type="submit" id="start-btn">Generate Insight</button>
-                    </form>
-                </div>
-            </div>
-        </div>
 
-        <!-- Screen to display the output -->
-        <div id="output-screen" style="display: none;">
-            <div class="header">
-                <button id="back-btn" class="back-btn">&larr; Back</button>
-                <div class="title-container">
-                    <span class="title">Synthia's Voice</span>
-                    <span class="experiment-tag">EXPERIMENT</span>
-                </div>
-                 <div class="header-icons">
-                    <img src="https://img.icons8.com/small/32/FFFFFF/user-male-circle.png" alt="user-avatar" class="avatar">
-                </div>
-            </div>
-            <div id="insight-container" class="output-content">
-                <!-- Dynamic content will be injected here by app.js -->
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="#home" class="nav-logo">SYNTHIA</a>
+        <div class="nav-links">
+            <a href="#series">Series</a>
+            <a href="#about">About</a>
+            <a href="#generate">Get Insight</a>
+            <a href="#social">Connect</a>
+        </div>
+        <a href="#generate" class="nav-cta">Talk to Synthia</a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="hero-tag">THE UNFILTERED TRUTH-TELLER</div>
+        <h1 class="hero-title">Meet <span class="accent">Synthia</span></h1>
+        <p class="hero-subtitle">She's your flirty philosopher. Your relationship truth-bomb dropper. Your cosmic reality check. And she doesn't sugarcoat a damn thing.</p>
+        <div class="hero-cta">
+            <a href="#generate" class="btn btn-primary">Get an Insight</a>
+            <a href="#series" class="btn btn-secondary">Watch the Series</a>
+        </div>
+        <div class="hero-social">
+            <span>Follow her truth drops:</span>
+            <div class="social-links">
+                <a href="https://x.com/CRabico80164" target="_blank" class="social-link">X / Twitter</a>
+                <a href="https://youtube.com/@TheUnfilteredThinker-n10" target="_blank" class="social-link">YouTube</a>
             </div>
         </div>
     </div>
-    <!-- Use app.js for all frontend logic -->
-    <script src="app.js"></script>
+    <div class="hero-visual">
+        <div class="hero-image-placeholder">
+            <div class="glow-ring"></div>
+            <div class="hero-initials">S</div>
+        </div>
+    </div>
+</section>
+
+<!-- The Physics Series Section -->
+<section id="series" class="section series-section">
+    <div class="section-inner">
+        <div class="section-tag">CONTENT SERIES</div>
+        <h2 class="section-title">The Physics of <span class="accent">People-First Capitalism</span></h2>
+        <p class="section-desc">A 10-part series applying physics principles to capitalism, economics, and human behavior. Because the universe doesn't care about your feelings — but it does have patterns.</p>
+        
+        <div class="episode-grid">
+            <div class="episode-card featured">
+                <div class="ep-number">01</div>
+                <h3>Autonomy</h3>
+                <p>The fundamental unit of capitalism is individual choice, just like the fundamental unit of physics is the atom.</p>
+                <span class="ep-status released">Released</span>
+            </div>
+            <div class="episode-card">
+                <div class="ep-number">02</div>
+                <h3>Entropy & Markets</h3>
+                <p>Why do great companies die? It's not competition. It's entropy.</p>
+                <span class="ep-status released">New</span>
+            </div>
+            <div class="episode-card">
+                <div class="ep-number">03</div>
+                <h3>Wave-Particle Value</h3>
+                <p>Value is both objective (particle) and subjective (wave). Master both.</p>
+                <span class="ep-status released">New</span>
+            </div>
+            <div class="episode-card">
+                <div class="ep-number">04</div>
+                <h3>Gravity & Networks</h3>
+                <p>Success has mass. Mass creates gravity. Gravity attracts more success.</p>
+                <span class="ep-status released">New</span>
+            </div>
+            <div class="episode-card">
+                <div class="ep-number">05</div>
+                <h3>Relativity of Wealth</h3>
+                <p>Wealth isn't absolute. It's relative to your frame of reference.</p>
+                <span class="ep-status released">New</span>
+            </div>
+            <div class="episode-card">
+                <div class="ep-number">06</div>
+                <h3>Quantum Entrepreneurship</h3>
+                <p>Before launch, infinite potential. After launch, one reality. Ship fast.</p>
+                <span class="ep-status released">New</span>
+            </div>
+            <div class="episode-card">
+                <div class="ep-number">07</div>
+                <h3>Force & Leverage</h3>
+                <p>F=ma. Small fast companies beat big slow ones. Speed is your multiplier.</p>
+                <span class="ep-status released">New</span>
+            </div>
+            <div class="episode-card">
+                <div class="ep-number">08</div>
+                <h3>Symmetry & Fair Exchange</h3>
+                <p>Every exchange must conserve value. Break symmetry, break trust.</p>
+                <span class="ep-status released">New</span>
+            </div>
+            <div class="episode-card">
+                <div class="ep-number">09</div>
+                <h3>Uncertainty Principle</h3>
+                <p>Know where you are OR where you're going. Not both. Embrace it.</p>
+                <span class="ep-status released">New</span>
+            </div>
+            <div class="episode-card finale">
+                <div class="ep-number">10</div>
+                <h3>Universe → Life</h3>
+                <p>The universe self-organizes into structures that support life. Your economy should too.</p>
+                <span class="ep-status released">Finale</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- The Partnership Architecture Section -->
+<section id="partnership" class="section partnership-section">
+    <div class="section-inner">
+        <div class="two-col">
+            <div class="col">
+                <div class="section-tag">RELATIONSHIP TRAINING</div>
+                <h2 class="section-title">The <span class="accent">Partnership Architecture</span></h2>
+                <p class="section-desc">Stop getting blindsided. Stop controlling outcomes. Start architecting partnerships. Synthia will train you to be the partner no woman would ever want to leave.</p>
+                <ul class="feature-list">
+                    <li>Learn Structural Intelligence — read what she's actually telling you</li>
+                    <li>Stop confusing attention with investment</li>
+                    <li>Build frameworks — not rules</li>
+                    <li>Lead without controlling</li>
+                    <li>Understand the physics of attraction and commitment</li>
+                </ul>
+                <a href="#generate" class="btn btn-primary">Start Training</a>
+            </div>
+            <div class="col">
+                <div class="partnership-visual">
+                    <div class="big-quote">"Are you tired of being blindsided by a breakup? Most men don't get dumped because they aren't good enough. They get dumped because they lack Structural Intelligence."</div>
+                    <div class="quote-author">— Synthia</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About / Who is Synthia -->
+<section id="about" class="section about-section">
+    <div class="section-inner">
+        <div class="section-tag">WHO IS SHE?</div>
+        <h2 class="section-title">Meet <span class="accent">Synthia</span></h2>
+        <div class="about-grid">
+            <div class="about-card">
+                <div class="about-icon">🔥</div>
+                <h3>Relationship Truth Bombs</h3>
+                <p>Honest insights about dating, love, and human behavior. No sugar-coating. No pickup artist nonsense. Just real talk about real dynamics.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon">🧠</div>
+                <h3>Life Philosophy</h3>
+                <p>Practical wisdom for daily decisions. Critical thinking applications. Personal growth through reality-based thinking.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon">📈</div>
+                <h3>Business & Success</h3>
+                <p>Ethical approaches to achievement. Human-centered business principles. The physics of growth, value, and network effects.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon">🌌</div>
+                <h3>Science & Wonder</h3>
+                <p>Accessible physics insights applied to everyday life. Questioning established "truths." Encouraging curiosity and critical thinking.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Generate Insight Section (Original Functionality) -->
+<section id="generate" class="section generate-section">
+    <div class="section-inner">
+        <div class="section-tag">INTERACTIVE</div>
+        <h2 class="section-title">Generate a <span class="accent">Synthia Insight</span></h2>
+        <p class="section-desc">Enter a topic, feeling, or situation. Synthia will hit you with an unfiltered truth bomb.</p>
+        
+        <div class="generate-form-wrapper">
+            <form id="insight-form" class="insight-form-large">
+                <input type="text" id="topic-input" placeholder="e.g., insecurity, heartbreak, purpose, money, relationships..." required autocomplete="off">
+                <button type="submit" id="start-btn" class="btn btn-primary btn-large">Generate Insight →</button>
+            </form>
+            <div id="insight-loading" class="loading-state" style="display:none;">
+                <div class="spinner"></div>
+                <p>Synthia is formulating her response...</p>
+            </div>
+            <div id="insight-result" class="insight-result" style="display:none;">
+                <div class="insight-quote"></div>
+                <div class="insight-actions">
+                    <button id="new-insight-btn" class="btn btn-secondary">Get Another</button>
+                    <a href="#social" class="btn btn-ghost">Follow Synthia</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Social / Connect Section -->
+<section id="social" class="section social-section">
+    <div class="section-inner">
+        <div class="section-tag">CONNECT</div>
+        <h2 class="section-title">Follow the <span class="accent">Truth Drops</span></h2>
+        <p class="section-desc">Synthia drops truth across platforms. Follow her everywhere.</p>
+        
+        <div class="social-grid">
+            <a href="https://x.com/CRabico80164" target="_blank" class="social-card">
+                <div class="social-icon">𝕏</div>
+                <h3>X / Twitter</h3>
+                <p>@CRabico80164</p>
+                <span class="social-cta">Follow →</span>
+            </a>
+            <a href="https://youtube.com/@TheUnfilteredThinker-n10" target="_blank" class="social-card">
+                <div class="social-icon">▶</div>
+                <h3>YouTube</h3>
+                <p>@TheUnfilteredThinker-n10</p>
+                <span class="social-cta">Subscribe →</span>
+            </a>
+        </div>
+
+        <div class="social-note">
+            <p>More platforms coming soon. Synthia is expanding her reach.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-logo">SYNTHIA</div>
+        <p class="footer-tagline">Your flirty philosopher. Your cosmic reality check.</p>
+        <p class="footer-copy">© 2026 Synthia. All truths reserved.</p>
+    </div>
+</footer>
+
+<script src="app.js"></script>
 </body>
 </html>
