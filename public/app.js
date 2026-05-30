@@ -1,64 +1,56 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const homeScreen = document.getElementById('home-screen');
-    const outputScreen = document.getElementById('output-screen');
-    const insightForm = document.getElementById('insight-form');
+// Synthia Frontend — Meet Synthia Landing Page
+
+(function() {
+    const form = document.getElementById('insight-form');
     const topicInput = document.getElementById('topic-input');
-    const insightContainer = document.getElementById('insight-container');
-    const backBtn = document.getElementById('back-btn');
+    const loading = document.getElementById('insight-loading');
+    const result = document.getElementById('insight-result');
+    const quoteEl = result.querySelector('.insight-quote');
+    const newBtn = document.getElementById('new-insight-btn');
 
-    insightForm.addEventListener('submit', async (e) => {
+    if (!form) return;
+
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        const topic = topicInput.value;
+        const topic = topicInput.value.trim();
+        if (!topic) return;
 
-        if (!topic) {
-            alert('Please enter a topic.');
-            return;
-        }
-
-        // Switch to the output screen and show a loading message
-        homeScreen.style.display = 'none';
-        outputScreen.style.display = 'block';
-        insightContainer.innerHTML = '<p class="loading">Generating insight...</p>';
+        // Show loading
+        form.style.display = 'none';
+        loading.style.display = 'block';
+        result.style.display = 'none';
 
         try {
-            const response = await fetch('/api/insight', {
+            const resp = await fetch('/api/insight', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ topic })
             });
 
-            const data = await response.json();
+            const data = await resp.json();
 
-            if (response.ok) {
-                // Format the response into the desired HTML structure
-                insightContainer.innerHTML = `
-                    <div class="output-box">
-                        <h2>✨ Synthia’s Insight</h2>
-                        <p>${data.insight}</p>
-                        <h3>Reflection</h3>
-                        <p>${data.reflection}</p>
-                        <h4>Continue Your Reading</h4>
-                        <p>${data.cta}</p>
-                    </div>
-                    <div class="output-actions">
-                        <button>Share</button>
-                        <button>Copy</button>
-                    </div>
-                `;
+            loading.style.display = 'none';
+
+            if (data.error) {
+                quoteEl.textContent = 'Synthia says: ' + data.error;
             } else {
-                insightContainer.innerHTML = `<p class="error">Error: ${data.error}</p>`;
+                quoteEl.textContent = data.insight || data.quote || JSON.stringify(data);
             }
-        } catch (error) {
-            insightContainer.innerHTML = `<p class="error">A network error occurred. Please try again.</p>`;
+            result.style.display = 'block';
+        } catch (err) {
+            loading.style.display = 'none';
+            quoteEl.textContent = 'Synthia is temporarily unavailable. Try again in a moment.';
+            result.style.display = 'block';
+            console.error('Insight error:', err);
         }
     });
 
-    // Handle the back button to return to the main screen
-    backBtn.addEventListener('click', () => {
-        homeScreen.style.display = 'block';
-        outputScreen.style.display = 'none';
-        topicInput.value = ''; // Clear the input field
-    });
-});
+    if (newBtn) {
+        newBtn.addEventListener('click', function() {
+            result.style.display = 'none';
+            form.style.display = 'flex';
+            topicInput.value = '';
+            topicInput.focus();
+        });
+    }
+})();
