@@ -1,8 +1,11 @@
 {
-  "name": "synthias-voice",
+  "name": "synthia",
   "version": "1.0.0",
-  "description": "An emotionally intelligent AI.",
+  "description": "Synthia — your flirty philosopher. A relationship coach and cosmic thinker.",
   "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "node index.js"
