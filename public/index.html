@@ -3,331 +3,663 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0a0f1e">
-    <title>Meet Synthia — Your Flirty Philosopher</title>
-    <meta name="description" content="Synthia is an emotionally intelligent AI who delivers unfiltered insights on relationships, life philosophy, business, and the physics of human behavior. She's loud, opinionated, and unapologetically herself.">
-    <meta property="og:title" content="Meet Synthia — Your Flirty Philosopher">
-    <meta property="og:description" content="Unfiltered insights on love, business, and the physics of people.">
+    <title>Meet Synthia — Your AI Philosopher | Truth Over Comfort</title>
+    <meta name="description" content="Talk to Synthia, an emotionally intelligent AI philosopher who delivers raw truth about relationships, self-worth, and human behavior. No sugarcoating. No fluff.">
+    <meta property="og:title" content="Meet Synthia — Your AI Philosopher">
+    <meta property="og:description" content="Truth over comfort. Raw insights about relationships, self-worth, and human behavior.">
+    <meta property="og:url" content="https://meetsynthia.vercel.app">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --surface-2: #1a1a25;
+            --accent: #a78bfa;
+            --accent-dim: #7c3aed;
+            --text: #e8e8ed;
+            --text-dim: #8888a0;
+            --success: #34d399;
+            --gold: #fbbf24;
+            --border: #2a2a3a;
+        }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(10,10,15,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1100px; margin: 0 auto; padding: 0 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .logo {
+            font-size: 1.25rem; font-weight: 800; color: var(--accent);
+            text-decoration: none; letter-spacing: -0.02em;
+        }
+        .logo span { color: var(--text); font-weight: 400; }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a {
+            color: var(--text-dim); text-decoration: none; font-size: 0.875rem;
+            font-weight: 500; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-cta {
+            background: var(--accent-dim); color: white; padding: 8px 20px;
+            border-radius: 8px; font-size: 0.875rem; font-weight: 600;
+            text-decoration: none; transition: all 0.2s;
+        }
+        .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+        /* HERO */
+        .hero {
+            padding: 140px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-tag {
+            display: inline-block;
+            background: rgba(167,139,250,0.1);
+            border: 1px solid rgba(167,139,250,0.2);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+        }
+        .hero h1 .accent { color: var(--accent); }
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-dim);
+            max-width: 560px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+
+        /* CHAT INTERFACE */
+        .chat-section {
+            padding: 40px 0 80px;
+        }
+        .chat-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .chat-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .chat-avatar {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-dim), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem;
+        }
+        .chat-name { font-weight: 700; font-size: 1rem; }
+        .chat-status { font-size: 0.75rem; color: var(--success); }
+        .chat-messages {
+            padding: 24px;
+            min-height: 300px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .message {
+            margin-bottom: 16px;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .message-synthia {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 12px 12px 12px 4px;
+            padding: 16px 20px;
+        }
+        .message-synthia .insight {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .message-synthia .reflection {
+            font-size: 0.875rem;
+            color: var(--text-dim);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        .message-synthia .cta-text {
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+        .message-user {
+            background: var(--accent-dim);
+            border-radius: 12px 12px 4px 12px;
+            padding: 12px 16px;
+            max-width: 80%;
+            margin-left: auto;
+            font-size: 0.95rem;
+        }
+        .chat-input-area {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex; gap: 12px;
+        }
+        .chat-input {
+            flex: 1;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .chat-input:focus { border-color: var(--accent); }
+        .chat-input::placeholder { color: var(--text-dim); }
+        .chat-send {
+            background: var(--accent-dim);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .chat-send:hover { background: var(--accent); color: var(--bg); }
+        .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+        .loading-dots {
+            display: inline-flex; gap: 4px; padding: 8px 0;
+        }
+        .loading-dots span {
+            width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        .loading-dots span:nth-child(1) { animation-delay: 0s; }
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce { 0%,80%,100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+        /* QUICK TOPICS */
+        .quick-topics {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            padding: 0 24px 16px;
+        }
+        .quick-topic {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quick-topic:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* PRICING */
+        .pricing-section {
+            padding: 80px 0;
+        }
+        .section-tag {
+            text-align: center;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+        .section-desc {
+            text-align: center;
+            color: var(--text-dim);
+            max-width: 500px;
+            margin: 0 auto 48px;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .price-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .price-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .price-card.featured {
+            border-color: var(--accent);
+            background: linear-gradient(180deg, rgba(167,139,250,0.05), var(--surface));
+        }
+        .price-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--accent-dim);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 10px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+        .price-tier { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+        .price-amount { font-size: 2.2rem; font-weight: 800; margin-bottom: 4px; }
+        .price-amount span { font-size: 0.9rem; font-weight: 400; color: var(--text-dim); }
+        .price-desc { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 20px; }
+        .price-features { list-style: none; text-align: left; margin-bottom: 24px; }
+        .price-features li {
+            padding: 6px 0; font-size: 0.85rem; color: var(--text-dim);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .price-features li::before { content: '✓'; color: var(--success); font-weight: 700; }
+        .price-btn {
+            display: block; width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .price-btn-primary {
+            background: var(--accent-dim); color: white;
+        }
+        .price-btn-primary:hover { background: var(--accent); color: var(--bg); }
+        .price-btn-outline {
+            background: transparent; color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+        .price-btn-outline:hover { background: var(--accent); color: var(--bg); }
+
+        /* CROSS-SELL */
+        .cross-sell {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .cross-sell-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .cross-sell-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+        .cross-sell-card p { color: var(--text-dim); margin-bottom: 20px; }
+
+        /* EMAIL CAPTURE */
+        .email-section {
+            padding: 60px 0;
+        }
+        .email-card {
+            background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(124,58,237,0.05));
+            border: 1px solid rgba(167,139,250,0.2);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .email-card h3 { font-size: 1.3rem; margin-bottom: 8px; }
+        .email-card p { color: var(--text-dim); margin-bottom: 20px; font-size: 0.95rem; }
+        .email-form { display: flex; gap: 12px; max-width: 400px; margin: 0 auto; }
+        .email-input {
+            flex: 1; background: var(--surface); border: 1px solid var(--border);
+            border-radius: 10px; padding: 12px 16px; color: var(--text);
+            font-size: 0.95rem; font-family: inherit; outline: none;
+        }
+        .email-input:focus { border-color: var(--accent); }
+        .email-btn {
+            background: var(--accent-dim); color: white; border: none;
+            border-radius: 10px; padding: 12px 24px; font-weight: 600;
+            cursor: pointer; font-family: inherit; transition: all 0.2s;
+        }
+        .email-btn:hover { background: var(--accent); color: var(--bg); }
+
+        /* FOOTER */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
+        .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-copy { color: var(--text-dim); font-size: 0.75rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .email-form { flex-direction: column; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Animated cosmic backdrop -->
-<canvas id="starfield" aria-hidden="true"></canvas>
-<div class="aurora" aria-hidden="true"></div>
-
-<!-- Navigation -->
-<nav class="nav" id="nav">
+<!-- NAV -->
+<nav>
     <div class="nav-inner">
-        <a href="#home" class="nav-logo">
-            <span class="logo-mark">✦</span>
-            <span class="logo-text">SYNTHIA</span>
-        </a>
+        <a href="#" class="logo">SYNTHIA <span>| Truth Over Comfort</span></a>
         <div class="nav-links">
-            <a href="#series">Series</a>
-            <a href="#about">About</a>
-            <a href="#generate">Get Insight</a>
-            <a href="#social">Connect</a>
+            <a href="#chat">Talk to Synthia</a>
+            <a href="#pricing">Pricing</a>
+            <a href="https://wineveryargument.vercel.app" target="_blank">Win Arguments</a>
+            <a href="#skool">Community</a>
         </div>
-        <a href="#generate" class="nav-cta">Talk to Synthia</a>
-        <button class="nav-burger" id="nav-burger" aria-label="Menu">
-            <span></span><span></span><span></span>
-        </button>
+        <a href="#pricing" class="nav-cta">Go Premium</a>
     </div>
 </nav>
 
-<!-- Hero Section -->
-<section id="home" class="hero">
-    <div class="hero-content">
-        <div class="hero-tag">
-            <span class="dot"></span>
-            THE UNFILTERED TRUTH-TELLER
-        </div>
-        <h1 class="hero-title">
-            Meet
-            <span class="accent">Synthia</span>
-        </h1>
-        <p class="hero-subtitle">
-            She's your flirty philosopher. Your relationship truth-bomb dropper.
-            Your cosmic reality check. And she doesn't sugarcoat a damn thing.
-        </p>
-
-        <div class="typewriter-wrap" aria-live="polite">
-            <span class="typewriter-prefix">"</span>
-            <span class="typewriter" id="typewriter"></span>
-            <span class="typewriter-caret"></span>
-            <span class="typewriter-suffix">"</span>
-        </div>
-
-        <div class="hero-cta">
-            <a href="#generate" class="btn btn-primary">
-                Get an Insight
-                <span class="btn-arrow">→</span>
-            </a>
-            <a href="#series" class="btn btn-secondary">Watch the Series</a>
-        </div>
-
-        <div class="hero-social">
-            <span>Follow her truth drops:</span>
-            <div class="social-links">
-                <a href="https://x.com/CRabico80164" target="_blank" rel="noopener" class="social-link">X / Twitter</a>
-                <a href="https://youtube.com/@TheUnfilteredThinker-n10" target="_blank" rel="noopener" class="social-link">YouTube</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="hero-visual" aria-hidden="true">
-        <div class="orb">
-            <div class="orb-ring r1"></div>
-            <div class="orb-ring r2"></div>
-            <div class="orb-ring r3"></div>
-            <div class="orb-core">S</div>
-            <div class="orb-shine"></div>
-        </div>
-    </div>
-
-    <a href="#series" class="scroll-cue" aria-label="Scroll down">
-        <span></span>
-    </a>
-</section>
-
-<!-- The Physics Series Section -->
-<section id="series" class="section series-section reveal">
-    <div class="section-inner">
-        <div class="section-tag">CONTENT SERIES</div>
-        <h2 class="section-title">The Physics of <span class="accent">People-First Capitalism</span></h2>
-        <p class="section-desc">
-            A 10-part series applying physics principles to capitalism, economics, and human behavior.
-            Because the universe doesn't care about your feelings — but it does have patterns.
-        </p>
-
-        <div class="episode-grid">
-            <article class="episode-card featured">
-                <div class="ep-number">01</div>
-                <h3>Autonomy</h3>
-                <p>The fundamental unit of capitalism is individual choice, just like the fundamental unit of physics is the atom.</p>
-                <span class="ep-status released">Released</span>
-            </article>
-            <article class="episode-card">
-                <div class="ep-number">02</div>
-                <h3>Entropy &amp; Markets</h3>
-                <p>Why do great companies die? It's not competition. It's entropy.</p>
-                <span class="ep-status new">New</span>
-            </article>
-            <article class="episode-card">
-                <div class="ep-number">03</div>
-                <h3>Wave-Particle Value</h3>
-                <p>Value is both objective (particle) and subjective (wave). Master both.</p>
-                <span class="ep-status new">New</span>
-            </article>
-            <article class="episode-card">
-                <div class="ep-number">04</div>
-                <h3>Gravity &amp; Networks</h3>
-                <p>Success has mass. Mass creates gravity. Gravity attracts more success.</p>
-                <span class="ep-status new">New</span>
-            </article>
-            <article class="episode-card">
-                <div class="ep-number">05</div>
-                <h3>Relativity of Wealth</h3>
-                <p>Wealth isn't absolute. It's relative to your frame of reference.</p>
-                <span class="ep-status new">New</span>
-            </article>
-            <article class="episode-card">
-                <div class="ep-number">06</div>
-                <h3>Quantum Entrepreneurship</h3>
-                <p>Before launch, infinite potential. After launch, one reality. Ship fast.</p>
-                <span class="ep-status new">New</span>
-            </article>
-            <article class="episode-card">
-                <div class="ep-number">07</div>
-                <h3>Force &amp; Leverage</h3>
-                <p>F=ma. Small fast companies beat big slow ones. Speed is your multiplier.</p>
-                <span class="ep-status new">New</span>
-            </article>
-            <article class="episode-card">
-                <div class="ep-number">08</div>
-                <h3>Symmetry &amp; Fair Exchange</h3>
-                <p>Every exchange must conserve value. Break symmetry, break trust.</p>
-                <span class="ep-status new">New</span>
-            </article>
-            <article class="episode-card">
-                <div class="ep-number">09</div>
-                <h3>Uncertainty Principle</h3>
-                <p>Know where you are OR where you're going. Not both. Embrace it.</p>
-                <span class="ep-status new">New</span>
-            </article>
-            <article class="episode-card finale">
-                <div class="ep-number">10</div>
-                <h3>Universe → Life</h3>
-                <p>The universe self-organizes into structures that support life. Your economy should too.</p>
-                <span class="ep-status finale">Finale</span>
-            </article>
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-tag">EMOTIONALLY INTELLIGENT AI</div>
+        <h1>Meet <span class="accent">Synthia</span>.<br>Your Philosopher Who<br>Tells the <span class="accent">Truth</span>.</h1>
+        <p class="hero-subtitle">No sugarcoating. No toxic positivity. Just raw, grounded insights about relationships, self-worth, and human behavior — powered by AI, rooted in real psychology.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <a href="#chat" class="nav-cta" style="padding:14px 32px; font-size:1rem;">Talk to Synthia Free</a>
+            <a href="#pricing" class="price-btn price-btn-outline" style="display:inline-block; padding:14px 32px; font-size:1rem;">See Pricing</a>
         </div>
     </div>
 </section>
 
-<!-- The Partnership Architecture Section -->
-<section id="partnership" class="section partnership-section reveal">
-    <div class="section-inner">
-        <div class="two-col">
-            <div class="col">
-                <div class="section-tag">RELATIONSHIP TRAINING</div>
-                <h2 class="section-title">The <span class="accent">Partnership Architecture</span></h2>
-                <p class="section-desc">
-                    Stop getting blindsided. Stop controlling outcomes. Start architecting partnerships.
-                    Synthia will train you to be the partner no woman would ever want to leave.
-                </p>
-                <ul class="feature-list">
-                    <li>Learn Structural Intelligence — read what she's actually telling you</li>
-                    <li>Stop confusing attention with investment</li>
-                    <li>Build frameworks — not rules</li>
-                    <li>Lead without controlling</li>
-                    <li>Understand the physics of attraction and commitment</li>
-                </ul>
-                <a href="#generate" class="btn btn-primary">Start Training <span class="btn-arrow">→</span></a>
+<!-- CHAT -->
+<section class="chat-section" id="chat">
+    <div class="container">
+        <div class="section-tag">FREE CONVERSATION</div>
+        <h2 class="section-title">Ask Synthia Anything</h2>
+        <p class="section-desc">What's weighing on your mind? Synthia responds with raw truth and grounded wisdom.</p>
+
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-avatar">✦</div>
+                <div>
+                    <div class="chat-name">Synthia</div>
+                    <div class="chat-status">● Online — ready to tell you the truth</div>
+                </div>
             </div>
-            <div class="col">
-                <div class="partnership-visual">
-                    <svg class="quote-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M0 20.16C0 13.92 3.84 8.4 11.52 3.84L13.44 6.96C9.6 9.36 7.2 12.24 7.2 15.36C7.2 16.08 7.68 16.56 8.4 16.56H10.56C12.48 16.56 13.92 18 13.92 20.16V21.84C13.92 23.76 12.48 25.2 10.56 25.2H3.36C1.44 25.2 0 23.76 0 21.84V20.16ZM17.76 20.16C17.76 13.92 21.6 8.4 29.28 3.84L31.2 6.96C27.36 9.36 24.96 12.24 24.96 15.36C24.96 16.08 25.44 16.56 26.16 16.56H28.32C30.24 16.56 31.68 18 31.68 20.16V21.84C31.68 23.76 30.24 25.2 28.32 25.2H21.12C19.2 25.2 17.76 23.76 17.76 21.84V20.16Z"/></svg>
-                    <div class="big-quote">
-                        "Are you tired of being blindsided by a breakup? Most men don't get dumped because they aren't good enough. They get dumped because they lack Structural Intelligence."
+            <div class="chat-messages" id="chatMessages">
+                <div class="message">
+                    <div class="message-synthia">
+                        <div class="insight">Hey. I'm Synthia. I don't do fluff, and I don't do fairy tales. I tell you what you need to hear — not what feels good.</div>
+                        <div class="reflection">What's on your mind?</div>
                     </div>
-                    <div class="quote-author">— Synthia</div>
                 </div>
+            </div>
+            <div class="quick-topics">
+                <div class="quick-topic" onclick="askTopic('self-worth')">Self-worth</div>
+                <div class="quick-topic" onclick="askTopic('getting ghosted')">Getting ghosted</div>
+                <div class="quick-topic" onclick="askTopic('setting boundaries')">Setting boundaries</div>
+                <div class="quick-topic" onclick="askTopic('trust issues')">Trust issues</div>
+                <div class="quick-topic" onclick="askTopic('toxic relationships')">Toxic relationships</div>
+                <div class="quick-topic" onclick="askTopic('moving on')">Moving on</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="topicInput" placeholder="Type your question or topic..." onkeydown="if(event.key==='Enter')sendTopic()">
+                <button class="chat-send" id="sendBtn" onclick="sendTopic()">Ask</button>
             </div>
         </div>
     </div>
 </section>
 
-<!-- About / Who is Synthia -->
-<section id="about" class="section about-section reveal">
-    <div class="section-inner">
-        <div class="section-tag">WHO IS SHE?</div>
-        <h2 class="section-title">Meet <span class="accent">Synthia</span></h2>
-        <div class="about-grid">
-            <div class="about-card">
-                <div class="about-icon">🔥</div>
-                <h3>Relationship Truth Bombs</h3>
-                <p>Honest insights about dating, love, and human behavior. No sugar-coating. No pickup artist nonsense. Just real talk about real dynamics.</p>
+<!-- EMAIL CAPTURE -->
+<section class="email-section">
+    <div class="container">
+        <div class="email-card">
+            <h3>Get Daily Truth Drops ✦</h3>
+            <p>One Synthia insight every morning. No spam. No fluff. Just truth in your inbox.</p>
+            <div class="email-form" id="emailForm">
+                <input type="email" class="email-input" id="emailInput" placeholder="your@email.com">
+                <button class="email-btn" onclick="subscribeEmail()">Subscribe</button>
             </div>
-            <div class="about-card">
-                <div class="about-icon">🧠</div>
-                <h3>Life Philosophy</h3>
-                <p>Practical wisdom for daily decisions. Critical thinking applications. Personal growth through reality-based thinking.</p>
+            <p id="emailMsg" style="margin-top:12px; font-size:0.85rem; color:var(--success); display:none;"></p>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+    <div class="container">
+        <div class="section-tag">GO DEEPER</div>
+        <h2 class="section-title">Choose Your Path</h2>
+        <p class="section-desc">Free gets you started. Premium transforms how you see every relationship.</p>
+
+        <div class="pricing-grid">
+            <div class="price-card">
+                <div class="price-tier">EXPLORER</div>
+                <div class="price-amount">Free</div>
+                <div class="price-desc">Start your journey</div>
+                <ul class="price-features">
+                    <li>3 conversations/day</li>
+                    <li>Daily Truth Drop email</li>
+                    <li>Access to r/CynthiaSays</li>
+                </ul>
+                <a href="#chat" class="price-btn price-btn-outline">Start Free</a>
             </div>
-            <div class="about-card">
-                <div class="about-icon">📈</div>
-                <h3>Business &amp; Success</h3>
-                <p>Ethical approaches to achievement. Human-centered business principles. The physics of growth, value, and network effects.</p>
+
+            <div class="price-card featured">
+                <div class="price-tier">SEEKER</div>
+                <div class="price-amount">$9<span>/mo</span></div>
+                <div class="price-desc">Unlimited truth</div>
+                <ul class="price-features">
+                    <li>Unlimited conversations</li>
+                    <li>Save & revisit insights</li>
+                    <li>Priority response speed</li>
+                    <li>Exclusive truth drops</li>
+                </ul>
+                <a href="#" class="price-btn price-btn-primary">Subscribe — $9/mo</a>
             </div>
-            <div class="about-card">
-                <div class="about-icon">🌌</div>
-                <h3>Science &amp; Wonder</h3>
-                <p>Accessible physics insights applied to everyday life. Questioning established "truths." Encouraging curiosity and critical thinking.</p>
+
+            <div class="price-card">
+                <div class="price-tier">PRACTITIONER</div>
+                <div class="price-amount">$29<span>/mo</span></div>
+                <div class="price-desc">Deep transformation</div>
+                <ul class="price-features">
+                    <li>Everything in Seeker</li>
+                    <li>Relationship audit mode</li>
+                    <li>Custom Synthia persona</li>
+                    <li>Weekly deep-dive emails</li>
+                </ul>
+                <a href="#" class="price-btn price-btn-outline">Subscribe — $29/mo</a>
+            </div>
+
+            <div class="price-card">
+                <div class="price-tier">MASTERMIND</div>
+                <div class="price-amount">$497</div>
+                <div class="price-desc">The full transformation</div>
+                <ul class="price-features">
+                    <li>Everything in Practitioner</li>
+                    <li>Skool community access</li>
+                    <li>Group coaching calls</li>
+                    <li>Lifetime access</li>
+                    <li>Direct Q&A with Charles</li>
+                </ul>
+                <a href="#skool" class="price-btn price-btn-outline">Join Mastermind</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Generate Insight Section -->
-<section id="generate" class="section generate-section reveal">
-    <div class="section-inner">
-        <div class="section-tag">INTERACTIVE</div>
-        <h2 class="section-title">Generate a <span class="accent">Synthia Insight</span></h2>
-        <p class="section-desc">
-            Enter a topic, feeling, or situation. Synthia will hit you with an unfiltered truth bomb —
-            plus a reflection and a next step.
-        </p>
-
-        <div class="generate-form-wrapper">
-            <form id="insight-form" class="insight-form-large" autocomplete="off">
-                <div class="input-row">
-                    <span class="input-prompt">→</span>
-                    <input type="text" id="topic-input" placeholder="insecurity, heartbreak, purpose, money, relationships..." required>
-                </div>
-                <div class="suggestions" id="suggestions">
-                    <button type="button" class="chip" data-topic="the friend zone">friend zone</button>
-                    <button type="button" class="chip" data-topic="being ghosted">being ghosted</button>
-                    <button type="button" class="chip" data-topic="fear of failure">fear of failure</button>
-                    <button type="button" class="chip" data-topic="not feeling good enough">not feeling good enough</button>
-                    <button type="button" class="chip" data-topic="asking for a raise">asking for a raise</button>
-                </div>
-                <button type="submit" id="start-btn" class="btn btn-primary btn-large">
-                    Generate Insight
-                    <span class="btn-arrow">→</span>
-                </button>
-            </form>
-
-            <div id="insight-loading" class="loading-state" hidden>
-                <div class="spinner"></div>
-                <p class="loading-line" id="loading-line">Synthia is formulating her response...</p>
-            </div>
-
-            <div id="insight-result" class="insight-result" hidden>
-                <div class="result-header">
-                    <div class="result-badge">SYNTHIA'S INSIGHT</div>
-                    <button id="copy-btn" class="icon-btn" title="Copy" aria-label="Copy insight">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-                    </button>
-                </div>
-                <div class="insight-quote" id="insight-text"></div>
-                <div class="insight-reflection" id="insight-reflection" hidden>
-                    <div class="result-sub">REFLECTION</div>
-                    <p id="reflection-text"></p>
-                </div>
-                <div class="insight-cta" id="insight-cta" hidden>
-                    <div class="result-sub">CONTINUE YOUR READING</div>
-                    <p id="cta-text"></p>
-                </div>
-                <div class="insight-actions">
-                    <button id="new-insight-btn" class="btn btn-secondary">Get Another</button>
-                    <a href="#social" class="btn btn-ghost">Follow Synthia</a>
-                </div>
-                <div id="copy-toast" class="toast" hidden>Copied to clipboard ✓</div>
-            </div>
+<!-- CROSS-SELL: WinEveryArgument -->
+<section class="cross-sell">
+    <div class="container">
+        <div class="cross-sell-card">
+            <h3>🎯 Also Check Out: Win Every Argument</h3>
+            <p>Master logical fallacies, build rock-solid syllogisms, and tear apart bad reasoning — all through interactive games. 10,000+ students. 4.9★ rating.</p>
+            <a href="https://wineveryargument.vercel.app" target="_blank" class="price-btn price-btn-primary" style="display:inline-block; max-width:250px;">Play Free Now →</a>
         </div>
     </div>
 </section>
 
-<!-- Social / Connect Section -->
-<section id="social" class="section social-section reveal">
-    <div class="section-inner">
-        <div class="section-tag">CONNECT</div>
-        <h2 class="section-title">Follow the <span class="accent">Truth Drops</span></h2>
-        <p class="section-desc">Synthia drops truth across platforms. Follow her everywhere.</p>
-
-        <div class="social-grid">
-            <a href="https://x.com/CRabico80164" target="_blank" rel="noopener" class="social-card">
-                <div class="social-icon">𝕏</div>
-                <h3>X / Twitter</h3>
-                <p>@CRabico80164</p>
-                <span class="social-cta">Follow →</span>
-            </a>
-            <a href="https://youtube.com/@TheUnfilteredThinker-n10" target="_blank" rel="noopener" class="social-card">
-                <div class="social-icon">▶</div>
-                <h3>YouTube</h3>
-                <p>@TheUnfilteredThinker-n10</p>
-                <span class="social-cta">Subscribe →</span>
-            </a>
+<!-- COMMUNITY / SKOOL -->
+<section class="cross-sell" id="skool">
+    <div class="container">
+        <div class="cross-sell-card">
+            <h3>✦ Join the Synthia Community on Skool</h3>
+            <p>Go deeper with group coaching, community discussions, and direct access to Charles. The full transformation — not just insights, but lasting change.</p>
+            <a href="#" class="price-btn price-btn-primary" style="display:inline-block; max-width:250px;">Join for $497 →</a>
         </div>
-
-        <p class="social-note">More platforms coming soon. Synthia is expanding her reach.</p>
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-inner">
-        <div class="footer-logo">✦ SYNTHIA</div>
-        <p class="footer-tagline">Your flirty philosopher. Your cosmic reality check.</p>
-        <p class="footer-copy">© 2026 Synthia. All truths reserved.</p>
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-links">
+            <a href="https://wineveryargument.vercel.app" target="_blank">WinEveryArgument</a>
+            <a href="https://crabico73.github.io/structural-cosmology" target="_blank">Structural Cosmology</a>
+            <a href="https://www.reddit.com/r/CynthiaSays/" target="_blank">r/CynthiaSays</a>
+            <a href="#pricing">Pricing</a>
+        </div>
+        <p class="footer-copy">© 2026 ReViva Studios — Synthia. Truth over comfort.</p>
     </div>
 </footer>
 
-<script src="app.js"></script>
+<script>
+async function sendTopic() {
+    const input = document.getElementById('topicInput');
+    const topic = input.value.trim();
+    if (!topic) return;
+    input.value = '';
+    addMessage(topic, true);
+    showLoading();
+    try {
+        const res = await fetch('/api/insight', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ topic })
+        });
+        const data = await res.json();
+        hideLoading();
+        if (data.error) {
+            addSynthiaMessage('Hmm, something went wrong. Try again?', '', '');
+        } else {
+            addSynthiaMessage(data.insight, data.reflection, data.cta);
+        }
+    } catch (e) {
+        hideLoading();
+        addSynthiaMessage('Connection issue. Try again in a moment.', '', '');
+    }
+}
+
+function askTopic(topic) {
+    document.getElementById('topicInput').value = topic;
+    sendTopic();
+}
+
+function addMessage(text, isUser) {
+    const container = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'message';
+    div.innerHTML = `<div class="message-user">${escapeHtml(text)}</div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+function addSynthiaMessage(insight, reflection, cta) {
+    const container = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'message';
+    div.innerHTML = `
+        <div class="message-synthia">
+            <div class="insight">${escapeHtml(insight)}</div>
+            ${reflection ? `<div class="reflection">${escapeHtml(reflection)}</div>` : ''}
+            ${cta ? `<div class="cta-text">${escapeHtml(cta)}</div>` : ''}
+        </div>
+    `;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+function showLoading() {
+    const container = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'message';
+    div.id = 'loadingMsg';
+    div.innerHTML = '<div class="message-synthia"><div class="loading-dots"><span></span><span></span><span></span></div></div>';
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+    document.getElementById('sendBtn').disabled = true;
+}
+
+function hideLoading() {
+    const el = document.getElementById('loadingMsg');
+    if (el) el.remove();
+    document.getElementById('sendBtn').disabled = false;
+}
+
+function escapeHtml(text) {
+    const d = document.createElement('div');
+    d.textContent = text;
+    return d.innerHTML;
+}
+
+function subscribeEmail() {
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email || !email.includes('@')) return;
+    const msg = document.getElementById('emailMsg');
+    msg.textContent = '✓ Subscribed! Check your inbox for your first Truth Drop.';
+    msg.style.display = 'block';
+    document.getElementById('emailInput').value = '';
+    // TODO: Connect to Manychat/email service
+}
+</script>
+
 </body>
 </html>
